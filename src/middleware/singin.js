@@ -23,11 +23,10 @@ async function signinMiddleware(req, res, next) {
                 res.stauts(403).json('please, the( username) or (password) Incorrect, try again.')
             }
         } catch (error) {
-            res.stauts(403).json('Error : the auth failed.')
-        }
+            res.status(403).send("Error");
+        }}
     }
-}
-module.exports=signinMiddleware
+    module.exports = signinMiddleware
 
 
 

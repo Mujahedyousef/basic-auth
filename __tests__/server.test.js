@@ -21,25 +21,28 @@ describe('testing for server', () => {
         expect(resopnse.status).toEqual(404)
     })
 })
+
 describe('basic Auth', () => {
-    it('test for stauts singup', async () => {
-        const response = await request.post('/singup').send({
+    it('Signup', async () => {
+        const response = await request.post('/signup').send({
             userName: "mujahed",
             password: "12345678"
-        })
-        expect(response.status).toEqual(201)
-    })
+        });
+        expect(response.status).toBe(201);
 
-    it('test for stauts signin when being correct user and pass', async () => {
-        const response = await request.post('/singin').auth("mujahed", "12345678")
-        expect(response.status).toEqual(200)
+    });
+    it('sign in with correct account', async () => {
+        const response = await request.post('/signin').auth("mujahed", "12345678");
+        expect(response.status).toBe(200);
 
-    })
+    });
 
-    it('test for stauts signin when being incorrect password ||userName ||both ', async () => {
-        const response = await request.post('/singin').auth("test", "1234")
-        expect(response.status).toEqual(403)
-    })
-
-})
-
+    it('sign in with wrong password', async () => {
+        const response = await request.post('/signin').auth("mujahed", "142582");
+        expect(response.status).toBe(403);
+    });
+    it('sign in  wrong userName &&password', async () => {
+        const response = await request.post('/signin').auth("ahamd", "fffff");
+        expect(response.status).toBe(403);
+    });
+});
